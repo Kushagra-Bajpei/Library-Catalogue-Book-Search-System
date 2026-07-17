@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="none">
+  <!-- Aesthetic Open Book Line Art -->
+  <path d="M70,380 C140,340 210,340 256,375 C302,340 372,340 442,380 L442,190 C372,150 302,150 256,185 C210,150 140,150 70,190 Z" 
+        stroke="#6366f1" 
+        stroke-width="12" 
+        stroke-linecap="round" 
+        stroke-linejoin="round"
+        fill="none" />
+  
+  <!-- Central spine line of the book -->
+  <line x1="256" y1="185" x2="256" y2="375" stroke="#6366f1" stroke-width="12" stroke-linecap="round" />
+
+  <!-- Clean AVL Tree overlay (Symmetric/Balanced) -->
+  <!-- Tree branches -->
+  <line x1="256" y1="120" x2="170" y2="210" stroke="#f59e0b" stroke-width="10" stroke-linecap="round" />
+  <line x1="256" y1="120" x2="342" y2="210" stroke="#f59e0b" stroke-width="10" stroke-linecap="round" />
+
+  <!-- Root Node (Top) -->
+  <circle cx="256" cy="120" r="28" fill="#f59e0b" stroke="#ffffff" stroke-width="6" />
+
+  <!-- Left Child Node -->
+  <circle cx="170" cy="210" r="24" fill="#6366f1" stroke="#ffffff" stroke-width="5" />
+
+  <!-- Right Child Node -->
+  <circle cx="342" cy="210" r="24" fill="#6366f1" stroke="#ffffff" stroke-width="5" />
+</svg>

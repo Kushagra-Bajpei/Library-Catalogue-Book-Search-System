@@ -1,0 +1,29 @@
+# Node modules and output
+node_modules/
+dist/
+.env
+
+# OS Files
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+# C++ Build output and temporary directories
+backend/build/
+backend/CMakeCache.txt
+backend/CMakeFiles/
+backend/Makefile
+backend/cmake_install.cmake
+*.o
+*.obj
+*.exe
+*.dylib
+*.so
+*.dll
+*.log
+build_log.txt
+main_test.o
+avl_test.o
+bst_test.o
+test_server.exe
