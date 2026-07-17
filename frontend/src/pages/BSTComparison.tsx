@@ -24,22 +24,20 @@ function HeightBar({ label, height, maxHeight, color, sublabel, icon }: {
     return (
         <div className="flex flex-col items-center gap-2 flex-1 min-w-0">
             <div className="text-xs font-semibold text-center" style={{ color: 'rgb(var(--text-muted))' }}>{label}</div>
-            <div className="relative w-full flex flex-col items-center justify-end" style={{ height: 200 }}>
-                <div className="absolute inset-x-0 bottom-0 rounded-lg overflow-hidden" style={{ background: 'rgba(255,255,255,0.04)' }}>
-                    <motion.div
-                        className="w-full rounded-lg flex items-end justify-center pb-2"
-                        style={{ background: color, minHeight: 12 }}
-                        initial={{ height: 0 }}
-                        animate={{ height: `${pct}%` }}
-                        transition={{ duration: 0.9, ease: 'easeOut', delay: 0.2 }}
-                    >
-                        <span className="text-white text-lg font-bold drop-shadow">{height}</span>
-                    </motion.div>
-                </div>
+            <div className="relative w-full rounded-xl bg-white/5 border border-white/5 flex flex-col justify-end overflow-hidden" style={{ height: 160 }}>
+                <motion.div
+                    className="w-full rounded-lg flex items-end justify-center pb-2"
+                    style={{ background: color, minHeight: 16 }}
+                    initial={{ height: 0 }}
+                    animate={{ height: `${pct}%` }}
+                    transition={{ duration: 0.9, ease: 'easeOut', delay: 0.2 }}
+                >
+                    <span className="text-white text-base font-bold drop-shadow-sm">{height}</span>
+                </motion.div>
             </div>
-            <div className="flex items-center gap-1 text-xs text-center" style={{ color: 'rgb(var(--text-muted))' }}>
+            <div className="flex items-center justify-center gap-1 text-[11px] text-center mt-1 w-full" style={{ color: 'rgb(var(--text-muted))' }}>
                 {icon}
-                <span>{sublabel}</span>
+                <span className="truncate max-w-[130px]">{sublabel}</span>
             </div>
         </div>
     );
@@ -95,7 +93,6 @@ export default function BSTComparison() {
     if (!data) return null;
 
     const maxH = Math.max(data.avl_height, data.bst_sorted_height, data.bst_random_height, data.ideal_height, 1);
-    const degradation = data.bst_sorted_height - data.avl_height;
     const optimality = ((data.avl_height - data.ideal_height) / Math.max(data.ideal_height, 1) * 100).toFixed(0);
 
     return (
@@ -172,7 +169,7 @@ export default function BSTComparison() {
                     </span>
                 </div>
 
-                <div className="flex items-end gap-4 h-52">
+                <div className="flex items-end gap-4 mt-6" style={{ minHeight: 220 }}>
                     <HeightBar
                         label="AVL Tree" height={data.avl_height} maxHeight={maxH}
                         color="linear-gradient(180deg, #10b981, #059669)"

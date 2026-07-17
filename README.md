@@ -145,3 +145,28 @@ Library Catalogue & Book Search System/
 - **AVL Visualizer** — Interactive SVG tree, zoom/pan, traversal animation
 - **Dark / Light mode** — Toggleable, persisted in localStorage
 - **Responsive** — Works on mobile, tablet, desktop
+
+---
+
+## 📷 Project Screenshots
+
+Below are placeholders where you can link your project screenshots. To show your screenshots:
+1. Create a folder named `screenshots` in the root of this project.
+2. Save your screenshots as `landing.png`, `dashboard.png`, `avl_visualizer.png`, and `bst_vs_avl.png` inside that folder.
+
+### 1. Landing Portal
+![Landing Screen](screenshots/landing.png)
+> *The modern entrance page showcasing the core library feature capabilities.*
+
+### 2. Analytics Dashboard
+![Dashboard Screen](screenshots/dashboard.png)
+> *Visual chart breakdowns of books by category, publication trends, and active loan ratios.*
+
+### 3. AVL Visualizer Control
+![AVL Visualizer Screen](screenshots/avl_visualizer.png)
+> *Interactive BST balance visualizer mapping root pivots and node level structures.*
+
+### 4. BST vs AVL Profile
+![BST vs AVL Screen](screenshots/bst_vs_avl.png)
+> *Side-by-side performance indicators tracking sorted data list degeneration limits.*
+

@@ -349,35 +349,41 @@ export default function Landing() {
                 </div>
             </section>
 
-            {/* Features */}
+            {/* Why AVL Section & Technical Specification details */}
             <section className="relative z-10 px-6 py-16">
                 <div className="max-w-6xl mx-auto">
-                    <motion.h2
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        className="text-3xl font-bold text-center mb-12 gradient-text"
-                    >
-                        Why AVL Trees?
-                    </motion.h2>
-                    <div className="grid md:grid-cols-3 gap-6">
+                    <div className="text-center mb-16">
+                        <motion.h2
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            className="text-4xl font-extrabold mb-4 gradient-text"
+                        >
+                            Why AVL Trees? The Mathematical Invariant
+                        </motion.h2>
+                        <p className="max-w-2xl mx-auto text-sm" style={{ color: 'rgb(var(--text-secondary))' }}>
+                            Standard Binary Search Trees (BST) degenerate into linear linked lists $O(n)$ if items are inserted in sorted order. An AVL Tree enforces strict balancing to guarantee logarithmic search.
+                        </p>
+                    </div>
+
+                    <div className="grid md:grid-cols-3 gap-6 mb-16">
                         {[
                             {
                                 icon: <Search size={24} />,
-                                title: 'O(log n) ISBN Lookup',
-                                desc: 'Binary search on a balanced BST gives guaranteed logarithmic search time — dramatically faster than linear scan.',
-                                color: '#6366f1',
+                                title: 'O(log n) Guaranteed Lookups',
+                                desc: 'Unlike arrays or databases requiring sequential scan disk queries, our C++ AVL Tree tree index maps books in memory tree heights with instant traversal.',
+                                color: '#0d9488',
                             },
                             {
                                 icon: <GitBranch size={24} />,
-                                title: 'Self-Balancing',
-                                desc: 'LL, RR, LR, RL rotations keep the tree balanced after every insert/delete, maintaining the height invariant.',
-                                color: '#a855f7',
+                                title: 'Height Balancing (BF)',
+                                desc: 'Every single insertion or deletion evaluates node heights. The balance factor (BF) formula: BF = Height(Left) - Height(Right). If |BF| > 1, rotations trigger.',
+                                color: '#f59e0b',
                             },
                             {
                                 icon: <Zap size={24} />,
-                                title: 'Real-Time Visualization',
-                                desc: 'Watch the tree restructure live as you add or remove books, with animated rotation demonstrations.',
+                                title: 'Self-Correcting Architecture',
+                                desc: 'Standard files become slow as they grow. The AVL index matches these lookups by organizing pointers and keeping the global tree completely uniform.',
                                 color: '#10b981',
                             },
                         ].map((f, i) => (
@@ -386,49 +392,397 @@ export default function Landing() {
                                 initial={{ opacity: 0, y: 30 }}
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true }}
-                                transition={{ delay: i * 0.15 }}
+                                transition={{ delay: i * 0.1 }}
                                 whileHover={{ y: -6 }}
                                 className="glass-card p-6"
+                                style={{ background: 'rgba(8, 18, 12, 0.4)' }}
                             >
                                 <div className="w-12 h-12 rounded-xl flex items-center justify-center mb-4"
                                     style={{ background: `${f.color}20`, border: `1px solid ${f.color}30` }}>
                                     <span style={{ color: f.color }}>{f.icon}</span>
                                 </div>
-                                <h3 className="text-base font-bold mb-2" style={{ color: 'rgb(var(--text-primary))' }}>{f.title}</h3>
-                                <p className="text-sm leading-relaxed" style={{ color: 'rgb(var(--text-secondary))' }}>{f.desc}</p>
+                                <h3 className="text-base font-bold mb-2 text-white">{f.title}</h3>
+                                <p className="text-xs leading-relaxed" style={{ color: 'rgb(var(--text-secondary))' }}>{f.desc}</p>
                             </motion.div>
                         ))}
+                    </div>
+
+                    {/* Algorithmic Complexity Showdown Table */}
+                    <div className="glass-card p-8 mb-16" style={{ background: 'rgba(8, 18, 12, 0.3)' }}>
+                        <h3 className="text-lg font-bold mb-4 text-white">Algorithmic Efficiency Matrix</h3>
+                        <p className="text-xs mb-6" style={{ color: 'rgb(var(--text-secondary))' }}>
+                            Compare lookup, insertion, and deletion complexity ratios between balanced AVL, unbalanced BST, and typical linear files.
+                        </p>
+                        <div className="overflow-x-auto">
+                            <table className="w-full text-left text-xs border-collapse">
+                                <thead>
+                                    <tr className="border-b border-white/10" style={{ color: 'rgb(var(--text-muted))' }}>
+                                        <th className="pb-3 font-semibold">Data Structure</th>
+                                        <th className="pb-3 font-semibold">Search (Avg)</th>
+                                        <th className="pb-3 font-semibold">Search (Worst)</th>
+                                        <th className="pb-3 font-semibold font-mono">Insert / Delete</th>
+                                        <th className="pb-3 font-semibold">Memory Overhead</th>
+                                    </tr>
+                                </thead>
+                                <tbody style={{ color: 'rgb(var(--text-secondary))' }}>
+                                    <tr className="border-b border-white/5">
+                                        <td className="py-3 font-semibold text-teal-400">Balanced AVL Tree</td>
+                                        <td className="py-3 font-mono">O(log n)</td>
+                                        <td className="py-3 font-mono text-teal-400 font-bold">O(log n)</td>
+                                        <td className="py-3 font-mono">O(log n)</td>
+                                        <td className="py-3">O(n) - 1 Balance Factor integer per Node</td>
+                                    </tr>
+                                    <tr className="border-b border-white/5">
+                                        <td className="py-3 font-semibold text-white/80">Unbalanced BST</td>
+                                        <td className="py-3 font-mono">O(log n)</td>
+                                        <td className="py-3 font-mono text-amber-500 font-bold">O(n) [Degenerated]</td>
+                                        <td className="py-3 font-mono">O(n) [Worst]</td>
+                                        <td className="py-3">O(n) - No balancing attributes</td>
+                                    </tr>
+                                    <tr>
+                                        <td className="py-3 font-semibold text-white/50">Linear Files / Database Scan</td>
+                                        <td className="py-3 font-mono">O(n)</td>
+                                        <td className="py-3 font-mono text-rose-500 font-bold">O(n)</td>
+                                        <td className="py-3 font-mono">O(n) [Rewrite required]</td>
+                                        <td className="py-3">O(1) - External files overhead</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    {/* Interactive Rotations Playground Simulator */}
+                    <RotationPlayground />
+
+                    {/* System Architecture Flow */}
+                    <div className="grid md:grid-cols-2 gap-8 items-stretch mt-16">
+                        <div className="glass-card p-6 flex flex-col justify-between" style={{ background: 'rgba(8, 18, 12, 0.4)' }}>
+                            <div>
+                                <div className="inline-block p-2 rounded-lg bg-teal-500/10 text-teal-400 text-xs font-semibold mb-4">
+                                    DATA PERSISTENCE MODEL
+                                </div>
+                                <h3 className="text-lg font-bold mb-3 text-white">Custom JSON Serialization Engine</h3>
+                                <p className="text-xs leading-relaxed mb-4" style={{ color: 'rgb(var(--text-secondary))' }}>
+                                    To satisfy the core File Handling requirements, this system manages books using flat JSON files (`books.json`).
+                                    Instead of slow, repetitive disk polling on searching, the backend builds the memory self-balancing AVL Tree index once at boot.
+                                    Every write operation (Insert/Update/Delete) modifies the memory structure and updates the file concurrently.
+                                </p>
+                            </div>
+                            <div className="p-4 rounded-xl bg-black/40 border border-white/5 font-mono text-[11px] text-teal-300">
+                                <span className="text-white/40">// Auto-save execution trace inside library.h</span><br />
+                                std::ofstream file(db_path);<br />
+                                file &lt;&lt; serializeToJson(tree.getRoot());<br />
+                                file.close();
+                            </div>
+                        </div>
+
+                        <div className="glass-card p-6 flex flex-col justify-between" style={{ background: 'rgba(8, 18, 12, 0.4)' }}>
+                            <div>
+                                <div className="inline-block p-2 rounded-lg bg-amber-500/10 text-amber-400 text-xs font-semibold mb-4">
+                                    ROTATION TRACKER HISTORY
+                                </div>
+                                <h3 className="text-lg font-bold mb-3 text-white">Self-Balancing Diagnostic Logger</h3>
+                                <p className="text-xs leading-relaxed mb-4" style={{ color: 'rgb(var(--text-secondary))' }}>
+                                    The C++ backend automatically intercepts all balance structural shifts (LL, RR, LR, RL) occurring during runtime operations and registers them in a central history collector.
+                                    This allows you to verify that balancing operations are occurring live and inspect the specific nodes being repositioned.
+                                </p>
+                            </div>
+                            <div className="flex flex-col gap-2">
+                                <div className="flex items-center justify-between text-xs p-2.5 rounded-lg bg-white/5 border border-white/5">
+                                    <span className="font-semibold text-white">Left-Left (LL) Right Rotation</span>
+                                    <span className="text-teal-400 font-mono">Pivot root node shift</span>
+                                </div>
+                                <div className="flex items-center justify-between text-xs p-2.5 rounded-lg bg-white/5 border border-white/5">
+                                    <span className="font-semibold text-white">Right-Left (RL) Double Rotation</span>
+                                    <span className="text-amber-400 font-mono">Double height balance fix</span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </section>
 
             {/* CTA */}
-            <section className="relative z-10 px-6 py-20">
+            <section className="relative z-10 px-6 py-16">
                 <motion.div
                     initial={{ opacity: 0, scale: 0.95 }}
                     whileInView={{ opacity: 1, scale: 1 }}
                     viewport={{ once: true }}
-                    className="max-w-3xl mx-auto text-center glass-card p-12"
+                    className="max-w-4xl mx-auto text-center glass-card p-12"
                     style={{ background: 'linear-gradient(135deg, rgba(13,148,136,0.1), rgba(16,185,129,0.08))' }}
                 >
                     <Star size={32} className="mx-auto mb-4 text-amber-400" />
-                    <h2 className="text-2xl font-bold mb-3" style={{ color: 'rgb(var(--text-primary))' }}>
-                        Ready to explore?
+                    <h2 className="text-3xl font-extrabold mb-3 text-white">
+                        Access Library Control Panel
                     </h2>
-                    <p className="mb-6 text-sm" style={{ color: 'rgb(var(--text-secondary))' }}>
-                        Browse the full catalogue, search with advanced filters, add new books, and visualize the AVL tree structure.
+                    <p className="mb-8 text-sm max-w-xl mx-auto" style={{ color: 'rgb(var(--text-secondary))' }}>
+                        Connect to the live C++ compiler system. Insert new publications, trigger rotation actions, and query heights.
                     </p>
-                    <Link to="/dashboard">
-                        <motion.button
-                            whileHover={{ scale: 1.05 }}
-                            whileTap={{ scale: 0.97 }}
-                            className="btn-primary flex items-center gap-2 mx-auto"
-                        >
-                            Open Dashboard <ArrowRight size={16} />
-                        </motion.button>
-                    </Link>
+                    <div className="flex items-center justify-center gap-4">
+                        <Link to="/dashboard">
+                            <motion.button
+                                whileHover={{ scale: 1.05 }}
+                                whileTap={{ scale: 0.97 }}
+                                className="btn-primary flex items-center gap-2"
+                            >
+                                Enter Dashboard <ArrowRight size={16} />
+                            </motion.button>
+                        </Link>
+                        <Link to="/avl">
+                            <motion.button
+                                whileHover={{ scale: 1.05 }}
+                                whileTap={{ scale: 0.97 }}
+                                className="btn-secondary"
+                            >
+                                Visualizer Engine
+                            </motion.button>
+                        </Link>
+                    </div>
                 </motion.div>
             </section>
+        </div>
+    );
+}
+
+// ─── Interactive Rotation Simulator Component ───────────────────────────────
+function RotationPlayground() {
+    const [activeTab, setActiveTab] = useState<'LL' | 'RR' | 'LR' | 'RL'>('LL');
+
+    const simulations = {
+        LL: {
+            title: 'Single Right Rotation (LL)',
+            trigger: 'Triggered when the Left Subtree is left-heavy (BF = +2, Child BF = +1)',
+            code: `// Balancing left-left case
+Node* k1 = root->left;
+root->left = k1->right;
+k1->right = root;
+updateHeight(root);
+updateHeight(k1);
+return k1; // New sub-root`,
+            leftTree: {
+                parent: 'A (BF=+2)',
+                left: 'B (BF=+1)',
+                right: 'T3',
+                leftLeft: 'C (BF=0)',
+                leftRight: 'T2',
+            },
+            rightTree: {
+                parent: 'B (BF=0)',
+                left: 'C (BF=0)',
+                right: 'A (BF=0)',
+                leftLeft: 'T0',
+                leftRight: 'T1',
+                rightRight: 'T3',
+                rightLeft: 'T2'
+            }
+        },
+        RR: {
+            title: 'Single Left Rotation (RR)',
+            trigger: 'Triggered when the Right Subtree is right-heavy (BF = -2, Child BF = -1)',
+            code: `// Balancing right-right case
+Node* k2 = root->right;
+root->right = k2->left;
+k2->left = root;
+updateHeight(root);
+updateHeight(k2);
+return k2; // New sub-root`,
+            leftTree: {
+                parent: 'A (BF=-2)',
+                left: 'T0',
+                right: 'B (BF=-1)',
+                rightLeft: 'T1',
+                rightRight: 'C (BF=0)',
+            },
+            rightTree: {
+                parent: 'B (BF=0)',
+                left: 'A (BF=0)',
+                right: 'C (BF=0)',
+                leftLeft: 'T0',
+                leftRight: 'T1',
+                rightLeft: 'T2',
+                rightRight: 'T3'
+            }
+        },
+        LR: {
+            title: 'Double Left-Right Rotation (LR)',
+            trigger: 'Triggered when the Left Subtree is right-heavy (BF = +2, Child BF = -1)',
+            code: `// Balancing left-right case
+root->left = rotateLeft(root->left);
+return rotateRight(root);`,
+            leftTree: {
+                parent: 'A (BF=+2)',
+                left: 'B (BF=-1)',
+                right: 'T3',
+                leftLeft: 'T0',
+                leftRight: 'C (BF=+1)',
+            },
+            rightTree: {
+                parent: 'C (BF=0)',
+                left: 'B (BF=0)',
+                right: 'A (BF=0)',
+                leftLeft: 'T0',
+                leftRight: 'T1',
+                rightLeft: 'T2',
+                rightRight: 'T3'
+            }
+        },
+        RL: {
+            title: 'Double Right-Left Rotation (RL)',
+            trigger: 'Triggered when the Right Subtree is left-heavy (BF = -2, Child BF = +1)',
+            code: `// Balancing right-left case
+root->right = rotateRight(root->right);
+return rotateLeft(root);`,
+            leftTree: {
+                parent: 'A (BF=-2)',
+                left: 'T0',
+                right: 'B (BF=+1)',
+                rightLeft: 'C (BF=-1)',
+                rightRight: 'T3',
+            },
+            rightTree: {
+                parent: 'C (BF=0)',
+                left: 'A (BF=0)',
+                right: 'B (BF=0)',
+                leftLeft: 'T0',
+                leftRight: 'T1',
+                rightLeft: 'T2',
+                rightRight: 'T3'
+            }
+        }
+    };
+
+    const sim = simulations[activeTab];
+
+    const renderNode = (text: string | undefined, styleType: 'parent-rose' | 'parent-emerald' | 'child' | 'muted' | 'leaf-rose') => {
+        if (!text) return null;
+        const parts = text.split(' ');
+        const label = parts[0];
+        const bf = parts.slice(1).join(' '); // e.g. "(BF=+2)"
+
+        let borderClass = 'border-white/10';
+        let bgClass = 'bg-white/5';
+        let textClass = 'text-white/80';
+        let bfClass = 'text-white/40';
+
+        if (styleType === 'parent-rose') {
+            borderClass = 'border-rose-500/30';
+            bgClass = 'bg-rose-500/10';
+            textClass = 'text-rose-400 font-bold';
+            bfClass = 'text-rose-450';
+        } else if (styleType === 'parent-emerald') {
+            borderClass = 'border-emerald-500/30';
+            bgClass = 'bg-emerald-500/10';
+            textClass = 'text-emerald-400 font-bold';
+            bfClass = 'text-emerald-450';
+        } else if (styleType === 'muted') {
+            borderClass = 'border-white/5';
+            bgClass = 'bg-white/5';
+            textClass = 'text-white/40';
+            bfClass = 'text-white/20';
+        } else if (styleType === 'leaf-rose') {
+            borderClass = 'border-rose-500/20';
+            bgClass = 'bg-rose-500/5';
+            textClass = 'text-rose-405 font-medium';
+            bfClass = 'text-rose-450';
+        }
+
+        return (
+            <div className={`w-14 h-14 rounded-full border ${borderClass} ${bgClass} flex flex-col items-center justify-center select-none shadow-sm transition-all duration-300`}>
+                <span className={`text-[11px] ${textClass} leading-none font-bold`}>{label}</span>
+                {bf && <span className={`text-[8px] ${bfClass} font-mono mt-0.5 leading-none`}>{bf}</span>}
+            </div>
+        );
+    };
+
+    return (
+        <div className="glass-card p-6" style={{ background: 'rgba(8, 18, 12, 0.45)' }}>
+            <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4 mb-6 border-b border-white/5 pb-4">
+                <div>
+                    <h3 className="text-xl font-bold text-white flex items-center gap-2">
+                        <Zap size={18} className="text-amber-400" />
+                        AVL Rotation Playground
+                    </h3>
+                    <p className="text-xs" style={{ color: 'rgb(var(--text-muted))' }}>
+                        Toggle rotation events to isolate how balancing routines execute in the C++ kernel.
+                    </p>
+                </div>
+                <div className="flex flex-wrap gap-1">
+                    {(['LL', 'RR', 'LR', 'RL'] as const).map(tab => (
+                        <button
+                            key={tab}
+                            onClick={() => setActiveTab(tab)}
+                            className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${activeTab === tab
+                                ? 'bg-teal-500 text-black shadow-md'
+                                : 'white/5 text-white/60 hover:text-white hover:bg-white/5'
+                                }`}
+                        >
+                            {tab} Rotation
+                        </button>
+                    ))}
+                </div>
+            </div>
+
+            <div className="grid lg:grid-cols-12 gap-8 items-stretch">
+                {/* Structural Diagram Representation */}
+                <div className="lg:col-span-7 flex flex-col justify-between">
+                    <div>
+                        <h4 className="text-xs font-semibold uppercase tracking-wider text-teal-400 mb-1">{sim.title}</h4>
+                        <p className="text-xs mb-6 text-white/50">{sim.trigger}</p>
+                    </div>
+
+                    <div className="grid grid-cols-2 gap-4 text-center items-center justify-center p-4 bg-black/30 rounded-2xl border border-white/5">
+                        {/* Imbalanced state */}
+                        <div className="flex flex-col items-center">
+                            <span className="text-[10px] font-semibold text-rose-400/80 mb-4 uppercase">Imbalanced Tree</span>
+                            <div className="flex flex-col items-center justify-center min-h-[170px] leading-5">
+                                {renderNode(sim.leftTree.parent, 'parent-rose')}
+                                <div className="w-0.5 h-3 bg-white/10 my-1" />
+                                <div className="flex gap-4 items-center">
+                                    {renderNode(sim.leftTree.left, 'child')}
+                                    {renderNode(sim.leftTree.right, 'muted')}
+                                </div>
+                                {(sim.leftTree.leftLeft || sim.leftTree.leftRight || sim.leftTree.rightLeft || sim.leftTree.rightRight) && (
+                                    <>
+                                        <div className="w-0.5 h-3 bg-white/10 my-1" />
+                                        <div className="flex gap-2">
+                                            {renderNode(sim.leftTree.leftLeft, 'leaf-rose')}
+                                            {renderNode(sim.leftTree.leftRight, 'muted')}
+                                            {renderNode(sim.leftTree.rightLeft, 'muted')}
+                                            {renderNode(sim.leftTree.rightRight, 'leaf-rose')}
+                                        </div>
+                                    </>
+                                )}
+                            </div>
+                        </div>
+
+                        {/* Rebalanced state */}
+                        <div className="flex flex-col items-center border-l border-white/5">
+                            <span className="text-[10px] font-semibold text-emerald-400 mb-4 uppercase">Rebalanced (Balanced)</span>
+                            <div className="flex flex-col items-center justify-center min-h-[170px] leading-5">
+                                {renderNode(sim.rightTree.parent, 'parent-emerald')}
+                                <div className="w-0.5 h-3 bg-white/10 my-1" />
+                                <div className="flex gap-4 items-center">
+                                    {renderNode(sim.rightTree.left, 'child')}
+                                    {renderNode(sim.rightTree.right, 'child')}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {/* Code snippets */}
+                <div className="lg:col-span-5 flex flex-col justify-between">
+                    <div>
+                        <h4 className="text-[10px] font-semibold uppercase tracking-wider text-amber-400 mb-3">C++ Rebalancing Code</h4>
+                        <pre className="p-4 rounded-xl bg-black/40 border border-white/5 font-mono text-[11px] leading-relaxed text-emerald-300 overflow-x-auto">
+                            <code>{sim.code}</code>
+                        </pre>
+                    </div>
+                    <div className="mt-4 p-3 rounded-lg bg-teal-500/5 border border-teal-500/10 text-[11px] leading-relaxed text-teal-200/80">
+                        <strong>Logic Note:</strong> Pointer swapping occurs in $O(1)$ constant time step. Balancing keeps the overall height bound tightly to $1.44 \log_2(n)$ at all times.
+                    </div>
+                </div>
+            </div>
         </div>
     );
 }
