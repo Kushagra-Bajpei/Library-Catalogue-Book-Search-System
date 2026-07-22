@@ -545,10 +545,21 @@ export default function Landing() {
 }
 
 // ─── Interactive Rotation Simulator Component ───────────────────────────────
+
+interface TreeState {
+    parent: string;
+    left: string;
+    right: string;
+    leftLeft?: string;
+    leftRight?: string;
+    rightLeft?: string;
+    rightRight?: string;
+}
+
 function RotationPlayground() {
     const [activeTab, setActiveTab] = useState<'LL' | 'RR' | 'LR' | 'RL'>('LL');
 
-    const simulations = {
+    const simulations: Record<'LL' | 'RR' | 'LR' | 'RL', { title: string; trigger: string; code: string; leftTree: TreeState; rightTree: TreeState }> = {
         LL: {
             title: 'Single Right Rotation (LL)',
             trigger: 'Triggered when the Left Subtree is left-heavy (BF = +2, Child BF = +1)',
